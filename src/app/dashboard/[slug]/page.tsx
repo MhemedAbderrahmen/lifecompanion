@@ -3,7 +3,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "~/components/ui/sidebar";
-import { AppSidebar } from "../_components/app-sidebar";
+import { AppSidebar } from "../../_components/app-sidebar";
 import { Separator } from "~/components/ui/separator";
 import {
   Breadcrumb,
@@ -14,7 +14,13 @@ import {
   BreadcrumbSeparator,
 } from "~/components/ui/breadcrumb";
 
-export default function Page() {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const slug = (await params).slug;
+
   return (
     <SidebarProvider
       style={
@@ -31,25 +37,17 @@ export default function Page() {
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="#">All Inboxes</BreadcrumbLink>
+                <BreadcrumbLink href="#">Goals</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator className="hidden md:block" />
               <BreadcrumbItem>
-                <BreadcrumbPage>Inbox</BreadcrumbPage>
+                <BreadcrumbPage>{slug}</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </p>
+          <p>{slug}</p>
         </div>
       </SidebarInset>
     </SidebarProvider>
